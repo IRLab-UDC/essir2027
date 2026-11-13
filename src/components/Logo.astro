@@ -1,0 +1,26 @@
+---
+import type { Partner } from '../data/partners';
+
+const { partner } = Astro.props as { partner: Partner };
+---
+
+<a
+  href={partner.url}
+  class="logo"
+  aria-label={partner.name}
+  title={partner.name}
+  style={`--logo: url(${partner.logo}); --ratio: ${partner.ratio}; --h: ${partner.height}rem`}
+></a>
+
+<style>
+  .logo {
+    display: block;
+    height: var(--h);
+    aspect-ratio: var(--ratio);
+    background: var(--muted);
+    mask: var(--logo) center / contain no-repeat;
+    transition: background .2s ease;
+  }
+
+  .logo:hover { background: var(--ink); }
+</style>

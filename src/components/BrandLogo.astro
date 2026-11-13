@@ -1,0 +1,29 @@
+---
+interface Props {
+  variant: 'primary' | 'horizontal' | 'symbol';
+  class?: string;
+}
+
+const sizes = { primary: [1080, 485], horizontal: [1450, 355], symbol: [320, 320] };
+const { variant, class: className } = Astro.props;
+const [width, height] = sizes[variant];
+---
+
+<span class:list={['brand', className]} role="img" aria-label="ESSIR 2027">
+  <img class="brand__light" src={`/brand/${variant}-light.svg`} alt="" width={width} height={height} />
+  <img class="brand__dark" src={`/brand/${variant}-dark.svg`} alt="" width={width} height={height} />
+</span>
+
+<style>
+  .brand { display: block; }
+  img { width: 100%; height: auto; vertical-align: top; }
+  .brand__dark { display: none; }
+
+  :global(:root[data-theme="dark"]) .brand__light { display: none; }
+  :global(:root[data-theme="dark"]) .brand__dark { display: inline; }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .brand__light { display: none; }
+    :global(:root:not([data-theme="light"])) .brand__dark { display: inline; }
+  }
+</style>

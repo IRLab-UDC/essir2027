@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320" role="img" aria-label="ESSIR 2027 - Tower of Hercules symbol">
+<title>ESSIR 2027 - Tower of Hercules symbol</title><g transform="translate(114 -9) scale(0.87)" fill="#262A3B">
+<!-- shaft: two open diagonal joints evoke the Roman spiral ramp -->
+<path d="M14 123 H91 L94 146 L9 183 Z"/>
+<path d="M9 197 L95 160 L98 214 L5 253 Z"/>
+<path d="M5 267 L99 229 L105 310 H0 Z"/>
+<!-- tiered horizontal stone cornice and minimal lantern -->
+<path d="M0 110 H105 V122 H0 Z"/>
+<path d="M13 95 H92 V108 H13 Z"/>
+<path d="M25 75 H33 V94 H25 Z M48 72 H57 V94 H48 Z M70 75 H78 V94 H70 Z"/>
+<path d="M20 71 L32 59 H73 L85 71 Z"/>
+<path d="M45 49 H60 V60 H45 Z"/>
+<path d="M73 38 H79 V60 H73 Z"/>
+</g><path d="M55 270 C116 245 170 255 218 273 S269 274 288 260" fill="none" stroke="#56295B" stroke-width="12" stroke-linecap="round"/></svg>

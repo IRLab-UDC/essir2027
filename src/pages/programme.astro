@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { programme } from '../data/programme';
+---
+
+<Layout
+  title="Programme · ESSIR 2027"
+  description="The programme of ESSIR 2027, 12 to 16 July 2027, A Coruña, Spain."
+  page="programme"
+>
+  <PageHeader eyebrow="12 to 16 July 2027" title="Programme" />
+
+  <div class="container">
+    {programme.length === 0 && <p class="status">To be announced</p>}
+    {programme.map(day => (
+      <section class="day">
+        <p class="label">{day.label}</p>
+        <h2>{day.date}</h2>
+        <ul class="rows">
+          {day.slots.map(slot => (
+            <li class="row">
+              <time class="label">{slot.time}</time>
+              <div>
+                <h3>{slot.title}</h3>
+                {slot.speaker && <p>{slot.speaker}</p>}
+              </div>
+              <span class="label">{slot.type}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</Layout>
+
+<style>
+  .day + .day { margin-top: clamp(3rem, 7vw, 5rem); }
+  .day h2 { margin-block: .5rem 1.5rem; font-size: 1.75rem; font-weight: 500; letter-spacing: -.03em; }
+</style>

@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { committee } from '../data/committee';
+---
+
+<Layout
+  title="Organisation · ESSIR 2027"
+  description="Organising committee of ESSIR 2027, 12 to 16 July 2027, A Coruña, Spain."
+  page="organisation"
+>
+  <PageHeader eyebrow="Organisation" title="Organisation" />
+
+  <div class="container">
+    {committee.length === 0 ? (
+      <p class="status">To be announced</p>
+    ) : (
+      <ul class="rows">
+        {committee.map(m => (
+          <li class="row">
+            <span class="label">{m.role}</span>
+            <div>
+              <h2>{m.name}</h2>
+              <p>{m.affiliation}, {m.country}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</Layout>

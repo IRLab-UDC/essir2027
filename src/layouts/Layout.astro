@@ -1,0 +1,203 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '../styles/global.css';
+import BrandLogo from '../components/BrandLogo.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  page?: string;
+}
+
+const {
+  title,
+  description = "ESSIR 2027, the 18th European Summer School on Information Retrieval, 12 to 16 July 2027, A Coruña, Spain.",
+  page = "",
+} = Astro.props;
+
+const navLinks = [
+  { href: "/programme", label: "Programme", id: "programme" },
+  { href: "/speakers", label: "Speakers", id: "speakers" },
+  { href: "/attending", label: "Attending", id: "attending" },
+  { href: "/fdia", label: "FDIA", id: "fdia" },
+  { href: "/organisation", label: "Organisation", id: "organisation" },
+];
+
+const pastEditions = [2026, 2025, 2024, 2023];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>{title}</title>
+    <script is:inline>
+      try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
+    </script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header__inner">
+        <a href="/" class="header__brand" aria-label="ESSIR 2027 home">
+          <BrandLogo variant="horizontal" class="header__logo" />
+        </a>
+        <nav aria-label="Main">
+          <ul class="header__nav">
+            {navLinks.map((link) => (
+              <li>
+                <a href={link.href} aria-current={page === link.id ? "page" : undefined}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <button class="theme-toggle" type="button" aria-label="Switch between light and dark mode">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div>
+          <p>ESSIR 2027 · 18th European Summer School on Information Retrieval</p>
+          <p class="label">12 to 16 July 2027 · A Coruña, Spain</p>
+        </div>
+        <nav class="footer__prev" aria-label="Previous editions">
+          <span class="label">Previous editions</span>
+          {pastEditions.map(y => <a href={`https://${y}.essir.eu/`}>{y}</a>)}
+          <a href="https://www.essir.eu/" class="footer__series" aria-label="ESSIR series (essir.eu)" title="ESSIR series"></a>
+        </nav>
+      </div>
+    </footer>
+    <script>
+      const root = document.documentElement;
+      document.querySelector('.theme-toggle')?.addEventListener('click', () => {
+        const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+        root.dataset.theme = dark ? 'light' : 'dark';
+        try { localStorage.setItem('theme', root.dataset.theme); } catch {}
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    min-height: 4rem;
+    flex-wrap: wrap;
+  }
+
+  .header__brand { display: flex; }
+
+  .header__brand :global(.header__logo) { width: 9.5rem; transform: translateX(-6.8%); }
+
+  .header nav { margin-left: auto; }
+
+  .header__nav {
+    display: flex;
+    gap: 1.75rem;
+    font-size: .9rem;
+  }
+
+  .header__nav a {
+    color: var(--muted);
+    transition: color .2s ease;
+  }
+
+  .header__nav a:hover,
+  .header__nav a[aria-current="page"] { color: var(--ink); }
+
+  .header__nav a[aria-current="page"] {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: .5rem;
+  }
+
+  .theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: none;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color .2s ease, border-color .2s ease;
+  }
+
+  .theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+
+  @media (max-width: 720px) {
+    .header__inner { padding-block: .9rem .5rem; }
+    .header nav { order: 1; width: 100%; margin-left: 0; }
+    .header__nav { flex-wrap: wrap; gap: .5rem 1.25rem; padding-bottom: .6rem; }
+  }
+
+  .footer {
+    border-top: 1px solid var(--line);
+    margin-top: clamp(3rem, 8vw, 6rem);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: .5rem 2rem;
+    padding-block: 2rem;
+    font-size: .9rem;
+    color: var(--muted);
+  }
+
+  .footer__inner .label { margin-top: .35rem; }
+
+  .footer__prev {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: .25rem 1rem;
+  }
+
+  .footer__prev .label { margin: 0; }
+
+  .footer__prev a { transition: color .2s ease, background .2s ease; }
+  .footer__prev a:hover { color: var(--accent); }
+
+  .footer__series {
+    height: 1.4rem;
+    transform: translateY(.1rem);
+    aspect-ratio: 310 / 120;
+    background: var(--muted);
+    mask: url(/brand/essir-series.png) center / contain no-repeat;
+  }
+
+  .footer__prev .footer__series:hover { background: var(--accent); }
+</style>

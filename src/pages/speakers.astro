@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { speakers } from '../data/speakers';
+---
+
+<Layout
+  title="Speakers · ESSIR 2027"
+  description="Invited speakers at ESSIR 2027, 12 to 16 July 2027, A Coruña, Spain."
+  page="speakers"
+>
+  <PageHeader eyebrow="Invited speakers" title="Speakers" />
+
+  <div class="container">
+    {speakers.length === 0 ? (
+      <p class="status">To be announced</p>
+    ) : (
+      <ul class="rows">
+        {speakers.map(s => (
+          <li class="row" id={s.id}>
+            <div class="speaker">
+              {s.photo && <img src={s.photo} alt="" loading="lazy" />}
+              <h2>{s.name}</h2>
+              <span class="label">{s.affiliation}, {s.country}</span>
+            </div>
+            <div class="talk">
+              <h3>{s.talkTitle}</h3>
+              <p>{s.bio}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .speaker { display: flex; flex-direction: column; gap: .35rem; }
+  .speaker img { width: 4.5rem; aspect-ratio: 1; object-fit: cover; border-radius: 50%; margin-bottom: .5rem; }
+  .talk { display: flex; flex-direction: column; gap: .5rem; }
+</style>
