@@ -80,11 +80,11 @@ const routeName = (r: string) => r.replace(/\*$/, '');
                     {a.domestic.map(r => <li class:list={{ seasonal: seasonal(r) }}>{routeName(r)}</li>)}
                   </ul>
                 </div>
-                <a href={a.href} class="more">Airport and flights ↗</a>
+                <a href={a.href} class="more">All destinations ↗</a>
               </li>
             ))}
           </ul>
-          <p class="fine">Dashed routes are seasonal and fly in summer. Routes change from season to season, so check the airport pages before booking.</p>
+          <p class="fine">Solid routes fly all year. Dashed routes fly in summer only and are based on the 2026 season. Check the airport’s destinations page before booking.</p>
 
           <TravelOptions options={toCity} />
         </div>

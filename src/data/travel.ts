@@ -19,9 +19,10 @@ export interface Airport {
 }
 
 /**
- * Direct routes as listed for the summer 2026 and winter 2026/27 seasons.
- * Airlines confirm summer 2027 schedules during the spring, so review this
- * list before the school and point people to the airport pages.
+ * Year-round routes are those on each airport's Aena destinations page
+ * (checked November 2026). Routes marked * are summer-only and were flown
+ * in summer 2026; airlines confirm summer 2027 during the spring, so check
+ * them again before the school.
  */
 export const airports: Airport[] = [
   {
@@ -30,13 +31,12 @@ export const airports: Airport[] = [
     distance: '70 km · about 1 h',
     transfer: 'Bus to Santiago railway station (about 20 minutes), then a 30 to 35 minute train to A Coruña. A taxi takes about 45 minutes.',
     international: [
-      'New York Newark*', 'London Gatwick', 'London Stansted', 'Paris Orly', 'Amsterdam*', 'Brussels',
-      'Frankfurt*', 'Munich', 'Zurich', 'Geneva', 'Basel', 'Milan Malpensa', 'Rome Fiumicino', 'Venice',
-      'Prague', 'Warsaw Modlin', 'Copenhagen*', 'Dublin', 'Cork*', 'Marrakesh*',
+      'New York Newark*', 'London Gatwick', 'London Stansted', 'Paris Orly', 'Geneva', 'Basel',
+      'Amsterdam*', 'Frankfurt*', 'Zurich*', 'Brussels Charleroi*', 'Copenhagen*', 'Dublin*', 'Cork*', 'Marrakesh*',
     ],
-    domestic: ['Madrid', 'Barcelona', 'Bilbao', 'Valencia', 'Seville', 'Málaga', 'Alicante', 'Palma', 'Ibiza', 'Canary Islands'],
+    domestic: ['Madrid', 'Barcelona', 'Bilbao', 'Valencia', 'Seville', 'Málaga', 'Palma', 'Canary Islands', 'Alicante*', 'Ibiza*'],
     note: 'The best-connected airport in Galicia. United flies non-stop from New York Newark in summer, the first scheduled link between Galicia and the United States, and Frankfurt, Amsterdam, Zurich and Paris give one-stop connections from almost anywhere.',
-    href: 'https://www.aena.es/en/santiago-rosalia-de-castro.html',
+    href: 'https://www.aena.es/es/santiago-rosalia-de-castro/aerolineas-y-destinos/destinos-aeropuerto.html',
   },
   {
     code: 'LCG',
@@ -44,8 +44,8 @@ export const airports: Airport[] = [
     distance: '8 km · 15 min',
     transfer: 'Alsa bus 4051 to the city centre about every 30 minutes on weekdays, or 15 to 20 minutes by taxi.',
     international: ['Geneva', 'Milan Malpensa'],
-    domestic: ['Madrid', 'Barcelona', 'Bilbao', 'Seville', 'Valencia', 'Málaga', 'Alicante', 'Gran Canaria', 'Tenerife'],
-    href: 'https://www.aena.es/en/a-coruna.html',
+    domestic: ['Madrid', 'Barcelona', 'Bilbao', 'Seville', 'Valencia', 'Málaga', 'Gran Canaria', 'Tenerife'],
+    href: 'https://www.aena.es/en/a-coruna/airlines-and-destinations/airport-destinations.html',
   },
   {
     code: 'VGO',
@@ -55,7 +55,7 @@ export const airports: Airport[] = [
     international: [],
     domestic: ['Madrid', 'Barcelona', 'Gran Canaria', 'Tenerife', 'Palma*'],
     note: 'Domestic flights only, mostly useful as a connection through Madrid or Barcelona.',
-    href: 'https://www.aena.es/en/vigo.html',
+    href: 'https://www.aena.es/en/vigo/airlines-and-destinations/airport-destinations.html',
   },
 ];
 
