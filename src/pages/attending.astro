@@ -90,9 +90,10 @@ const routeName = (r: string) => r.replace(/\*$/, '');
         </div>
       </section>
 
-      <section class="row">
+      <section class="row row--top">
         <h2>Santiago and the Holy Year</h2>
         <div class="wide">
+          <img class="photo" src="/images/santiago.webp" alt="The cathedral of Santiago de Compostela above the roofs of the old town" loading="lazy" width="1200" height="800" />
           <p><a href="https://www.santiagoturismo.com/?lang=en">Santiago de Compostela</a> is 30 minutes from A Coruña by train and worth at least an afternoon: its old town and cathedral, the end of the <a href="https://en.wikipedia.org/wiki/Camino_de_Santiago">Camino de Santiago</a>, are a UNESCO World Heritage Site.</p>
           <p>2027 is a <a href="https://en.wikipedia.org/wiki/Jacobean_Holy_Year">Compostelan Holy Year</a>, since the feast of St James, 25 July, falls on a Sunday. It comes round only every six or eleven years: the cathedral’s Holy Door opens for the whole year and pilgrims arrive from all over the world.</p>
           <p>So there is one more way to reach the school, the traditional one: walk one of the Caminos to Santiago and take the train to A Coruña from there. A Coruña is itself a starting point of the <a href="https://en.wikipedia.org/wiki/English_Way">Camino Inglés</a>, so you can also start walking at the door of the school and reach Santiago in about four days.</p>
@@ -179,7 +180,17 @@ const routeName = (r: string) => r.replace(/\*$/, '');
     margin-top: .5rem;
   }
 
-  .sights--text { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 0; }
+  .sights--text { grid-template-columns: 1fr; margin-top: 0; }
+
+  .row--top { align-items: start; }
+
+  .photo {
+    width: 100%;
+    aspect-ratio: 21 / 9;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: .5rem;
+  }
 
   .sight {
     display: flex;
@@ -250,7 +261,8 @@ const routeName = (r: string) => r.replace(/\*$/, '');
   .fine { font-size: .85rem; }
 
   @media (max-width: 860px) {
-    .airports, .sights--text { grid-template-columns: 1fr; }
+    .airports { grid-template-columns: 1fr; }
+    .photo { aspect-ratio: 4 / 3; }
   }
 
   @media (max-width: 640px) {

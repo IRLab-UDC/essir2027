@@ -24,8 +24,8 @@ export const sights: Sight[] = [
     image: '/images/riazor.webp',
   },
   {
-    name: 'Avenida da Mariña and María Pita',
-    text: 'The white glazed galleries along the harbour gave A Coruña its name of city of glass. Right behind them is the Praza de María Pita and the city hall.',
+    name: 'Avenida da Mariña',
+    text: 'The white glazed galleries along the harbour gave A Coruña its name of city of glass. They are best seen from the marina, with the fishing boats in front.',
     image: '/images/avenida-marina.webp',
   },
   {
@@ -40,12 +40,14 @@ export const sights: Sight[] = [
     href: 'https://www.muncyt.es/',
   },
   {
-    name: 'The old town',
-    text: 'Narrow stone streets, Romanesque churches such as Santa María do Campo, and the Xardín de San Carlos, a small garden on the old walls with the tomb of General John Moore.',
+    name: 'María Pita and the old town',
+    text: 'The Praza de María Pita and its city hall open onto the old town: narrow stone streets, Romanesque churches such as Santa María do Campo, and the Xardín de San Carlos, with the tomb of General John Moore.',
+    image: '/images/maria-pita.webp',
   },
   {
     name: 'Monte de San Pedro',
     text: 'A park on the hill west of the city with old coastal guns and the widest view of the bay. A glass panoramic lift climbs up from the promenade.',
+    image: '/images/monte-san-pedro.webp',
   },
   {
     name: 'Food',
