@@ -42,6 +42,7 @@ Run `npm run build` before pushing larger changes. It is the same build the depl
 | `src/styles/global.css` | Colours (light and dark), fonts and shared styles |
 | `public/brand/` | ESSIR 2027 logo: primary, horizontal and symbol, each in light and dark |
 | `public/logos/` | Partner logos |
+| `public/images/` | Photos of A Coruña: hero background and Attending page |
 | `public/essir2027.ics` | Calendar file behind "Add to calendar" |
 | `.github/workflows/deploy.yml` | Build and deploy to GitHub Pages |
 
@@ -54,7 +55,8 @@ Most changes only touch `src/data/`. A page with an empty list shows "To be anno
 | `speakers.ts` | Speakers |
 | `programme.ts` | Programme, one entry per day |
 | `committee.ts` | Organisation |
-| `travel.ts` | Travel cards on Attending |
+| `travel.ts` | Airports (direct routes) and travel cards on Attending |
+| `coruna.ts` | Places to see in A Coruña on Attending (photos in `public/images/`) |
 | `partners.ts` | Organiser and supporter logos on the home page |
 
 Examples:

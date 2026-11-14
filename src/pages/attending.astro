@@ -2,15 +2,19 @@
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import TravelOptions from '../components/TravelOptions.astro';
-import { toCity, toCampus } from '../data/travel';
+import { airports, toCity, toCampus } from '../data/travel';
+import { sights } from '../data/coruna';
 
 const tba = ['Accommodation', 'Registration', 'Visa'];
 const place = encodeURIComponent('Facultade de Informática, Campus de Elviña, A Coruña');
+
+const seasonal = (r: string) => r.endsWith('*');
+const routeName = (r: string) => r.replace(/\*$/, '');
 ---
 
 <Layout
   title="Attending · ESSIR 2027"
-  description="Practical information for attending ESSIR 2027, 12 to 16 July 2027, A Coruña, Spain."
+  description="Practical information for attending ESSIR 2027, 12 to 16 July 2027, A Coruña, Spain: how to get there, what to see and the 2027 Holy Year in Santiago."
   page="attending"
 >
   <PageHeader eyebrow="Practical information" title="Attending" />
@@ -20,16 +24,79 @@ const place = encodeURIComponent('Facultade de Informática, Campus de Elviña, 
       <section class="row">
         <h2>A Coruña</h2>
         <div class="wide">
-          <p>A Coruña is a port city of about 250,000 people on the Atlantic coast of <a href="https://en.wikipedia.org/wiki/Galicia_(Spain)">Galicia</a>, in north-west Spain. Most of it sits on a narrow peninsula, so the sea is never far: the <a href="https://www.coruna.gal/tourism/en/what-to-do-in-a-coruna/nature-and-sports">seafront promenade</a> runs for more than 12 km around the city, past the port and the two city beaches, Riazor and Orzán.</p>
-          <p>Its best-known landmark is the <a href="https://en.wikipedia.org/wiki/Tower_of_Hercules">Torre de Hércules</a>, a Roman lighthouse from the first century AD. It was restored in the 18th century, still works today and has been a <a href="https://whc.unesco.org/en/list/1312/">UNESCO World Heritage Site</a> since 2009. Along the harbour, the white glazed galleries of the Avenida da Mariña gave A Coruña its nickname, the city of glass. Behind them, the <a href="https://www.coruna.gal/tourism/en/what-to-do-in-a-coruna/art-and-culture">old town</a> has narrow stone streets, Romanesque churches and the Praza de María Pita, named after <a href="https://en.wikipedia.org/wiki/Mar%C3%ADa_Pita">the woman</a> who led the defence of the city against an English attack in 1589.</p>
-          <p>The city is known for its <a href="https://www.coruna.gal/tourism/en/what-to-do-in-a-coruna/cuisine">seafood</a>, served in the bars and restaurants around the old town. Summers are mild and rarely very hot, and in July there is daylight until around 10 pm.</p>
+          <p>A Coruña is a port city of about 250,000 people on the Atlantic coast of <a href="https://en.wikipedia.org/wiki/Galicia_(Spain)">Galicia</a>, in north-west Spain. Most of it sits on a narrow peninsula, so the sea is never far, and it is easy to see on foot. Summers are mild and rarely very hot, and in July there is daylight until around 10 pm, which leaves long evenings after the lectures.</p>
+
+          <ul class="sights">
+            {sights.filter(s => s.image).map(s => (
+              <li class="sight">
+                {s.image && <img src={s.image} alt={s.name} loading="lazy" width="800" height="500" />}
+                <div class="sight__body">
+                  <h3>{s.href ? <a href={s.href}>{s.name} ↗</a> : s.name}</h3>
+                  <p>{s.text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <ul class="sights sights--text">
+            {sights.filter(s => !s.image).map(s => (
+              <li class="sight">
+                <div class="sight__body">
+                  <h3>{s.href ? <a href={s.href}>{s.name} ↗</a> : s.name}</h3>
+                  <p>{s.text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+
           <a href="https://www.coruna.gal/tourism/en" class="more">Visit A Coruña ↗</a>
         </div>
       </section>
 
       <section class="row">
         <h2>Getting to A Coruña</h2>
-        <div class="wide"><TravelOptions options={toCity} /></div>
+        <div class="wide">
+          <p>Three airports in Galicia are linked to A Coruña by train. Santiago has the most direct flights, including to the United States; A Coruña is the closest; Vigo has domestic flights. Madrid and Barcelona connect with all three.</p>
+
+          <ul class="airports">
+            {airports.map(a => (
+              <li class="airport">
+                <header>
+                  <span class="label">{a.code} · {a.distance}</span>
+                  <h3>{a.name}</h3>
+                </header>
+                {a.note && <p>{a.note}</p>}
+                <p>{a.transfer}</p>
+                {a.international.length > 0 && (
+                  <div>
+                    <h4 class="label">Direct international</h4>
+                    <ul class="routes">
+                      {a.international.map(r => <li class:list={{ seasonal: seasonal(r) }}>{routeName(r)}</li>)}
+                    </ul>
+                  </div>
+                )}
+                <div>
+                  <h4 class="label">Direct in Spain</h4>
+                  <ul class="routes">
+                    {a.domestic.map(r => <li class:list={{ seasonal: seasonal(r) }}>{routeName(r)}</li>)}
+                  </ul>
+                </div>
+                <a href={a.href} class="more">Airport and flights ↗</a>
+              </li>
+            ))}
+          </ul>
+          <p class="fine">Dashed routes are seasonal and fly in summer. Routes change from season to season, so check the airport pages before booking.</p>
+
+          <TravelOptions options={toCity} />
+        </div>
+      </section>
+
+      <section class="row">
+        <h2>Santiago and the Holy Year</h2>
+        <div class="wide">
+          <p><a href="https://www.santiagoturismo.com/?lang=en">Santiago de Compostela</a> is 30 minutes from A Coruña by train and worth at least an afternoon: its old town and cathedral, the end of the <a href="https://en.wikipedia.org/wiki/Camino_de_Santiago">Camino de Santiago</a>, are a UNESCO World Heritage Site.</p>
+          <p>2027 is a <a href="https://en.wikipedia.org/wiki/Jacobean_Holy_Year">Compostelan Holy Year</a>, since the feast of St James, 25 July, falls on a Sunday. It comes round only every six or eleven years: the cathedral’s Holy Door opens for the whole year and pilgrims arrive from all over the world.</p>
+          <p>So there is one more way to reach the school, the traditional one: walk one of the Caminos to Santiago and take the train to A Coruña from there. A Coruña is itself a starting point of the <a href="https://en.wikipedia.org/wiki/English_Way">Camino Inglés</a>, so you can also start walking at the door of the school and reach Santiago in about four days.</p>
+        </div>
       </section>
 
       <section class="row">
@@ -95,8 +162,100 @@ const place = encodeURIComponent('Facultade de Informática, Campus de Elviña, 
 
   .more:hover { color: var(--accent); }
 
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: -.01em;
+  }
+
+  h3 a { transition: color .2s ease; }
+  h3 a:hover { color: var(--accent); }
+
+  /* Sights */
+  .sights {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: .5rem;
+  }
+
+  .sights--text { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 0; }
+
+  .sight {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+
+  .sight img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .sight__body {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    padding: 1.1rem 1.25rem 1.25rem;
+  }
+
+  .sight p { font-size: .95rem; }
+
+  /* Airports */
+  .airports {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: .5rem;
+  }
+
+  .airport:first-child { grid-column: 1 / -1; }
+
+  .airport {
+    display: flex;
+    flex-direction: column;
+    gap: .9rem;
+    padding: 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+
+  .airport:first-child { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+
+  .airport header { display: flex; flex-direction: column; gap: .25rem; }
+  .airport p { font-size: .95rem; }
+  .airport h4 { margin-bottom: .5rem; font-size: .7rem; }
+  .airport .more { margin-top: auto; }
+
+  .routes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+  }
+
+  .routes li {
+    padding: .1rem .55rem;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    font-size: .8rem;
+    line-height: 1.5;
+    white-space: nowrap;
+  }
+
+  .routes li.seasonal { border-style: dashed; border-color: var(--muted); }
+
+  .fine { font-size: .85rem; }
+
+  @media (max-width: 860px) {
+    .airports, .sights--text { grid-template-columns: 1fr; }
+  }
+
   @media (max-width: 640px) {
     .wide { grid-column: 1 / -1; }
     .map { aspect-ratio: 4 / 3; }
+    .sights { grid-template-columns: 1fr; }
   }
 </style>

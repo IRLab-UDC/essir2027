@@ -92,13 +92,19 @@ const details = [
   .hero::after {
     content: '';
     position: absolute;
-    inset: -4rem;
+    inset: 0;
     z-index: -2;
-    background: url('/images/coruna.webp') center 60% / cover;
-    filter: blur(28px) saturate(.9);
-    opacity: .45;
-    mask-image: linear-gradient(to bottom, #000 30%, transparent 85%);
+    background: url('/images/torre-hercules.webp') 85% 35% / cover no-repeat;
+    filter: saturate(.85);
+    opacity: .3;
+    mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
   }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .hero::after { opacity: .22; }
+  }
+
+  :root[data-theme="dark"] .hero::after { opacity: .22; }
 
   .hero__grid {
     display: grid;
