@@ -14,6 +14,8 @@ export interface Airport {
   /** Direct international routes. A trailing * marks seasonal (summer) routes. */
   international: string[];
   domestic: string[];
+  /** New routes announced by airlines but not flying yet. */
+  announced?: string[];
   note?: string;
   href: string;
 }
@@ -22,7 +24,9 @@ export interface Airport {
  * Year-round routes are those on each airport's Aena destinations page
  * (checked November 2026). Routes marked * are summer-only and were flown
  * in summer 2026; airlines confirm summer 2027 during the spring, so check
- * them again before the school.
+ * them again before the school. `announced` lists new routes that airlines
+ * have announced but that had not started when checked: move them up once
+ * they appear on the Aena page.
  */
 export const airports: Airport[] = [
   {
@@ -32,9 +36,13 @@ export const airports: Airport[] = [
     transfer: 'Bus to Santiago railway station (about 20 minutes), then a 30 to 35 minute train to A Coruña. A taxi takes about 45 minutes.',
     international: [
       'New York Newark*', 'London Gatwick', 'London Stansted', 'Paris Orly', 'Geneva', 'Basel',
-      'Amsterdam*', 'Frankfurt*', 'Zurich*', 'Brussels Charleroi*', 'Copenhagen*', 'Dublin*', 'Cork*', 'Marrakesh*',
+      'Amsterdam*', 'Frankfurt*', 'Zurich*', 'Brussels Charleroi*', 'Dublin*', 'Cork*', 'Marrakesh*',
     ],
     domestic: ['Madrid', 'Barcelona', 'Bilbao', 'Valencia', 'Seville', 'Málaga', 'Palma', 'Canary Islands', 'Alicante*', 'Ibiza*'],
+    announced: [
+      'Brussels', 'Munich', 'Prague', 'Venice', 'Milan Malpensa', 'Rome Fiumicino', 'Warsaw Modlin',
+      'Copenhagen', 'Granada', 'Zaragoza',
+    ],
     note: 'The best-connected airport in Galicia. United flies non-stop from New York Newark in summer, the first scheduled link between Galicia and the United States, and Frankfurt, Amsterdam, Zurich and Paris give one-stop connections from almost anywhere.',
     href: 'https://www.aena.es/es/santiago-rosalia-de-castro/aerolineas-y-destinos/destinos-aeropuerto.html',
   },
@@ -45,6 +53,7 @@ export const airports: Airport[] = [
     transfer: 'Alsa bus 4051 to the city centre about every 30 minutes on weekdays, or 15 to 20 minutes by taxi.',
     international: ['Geneva', 'Milan Malpensa'],
     domestic: ['Madrid', 'Barcelona', 'Bilbao', 'Seville', 'Valencia', 'Málaga', 'Gran Canaria', 'Tenerife'],
+    announced: ['Alicante'],
     href: 'https://www.aena.es/en/a-coruna/airlines-and-destinations/airport-destinations.html',
   },
   {

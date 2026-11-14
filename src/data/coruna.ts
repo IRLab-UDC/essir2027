@@ -52,6 +52,7 @@ export const sights: Sight[] = [
   {
     name: 'Food',
     text: 'Seafood, octopus and tapas in the streets around Rúa da Estrela and Rúa da Franxa, and the fish stalls of the Praza de Lugo market in the morning.',
+    image: '/images/polbo.webp',
     href: 'https://www.coruna.gal/tourism/en/what-to-do-in-a-coruna/cuisine',
   },
 ];

@@ -27,19 +27,9 @@ const routeName = (r: string) => r.replace(/\*$/, '');
           <p>A Coruña is a port city of about 250,000 people on the Atlantic coast of <a href="https://en.wikipedia.org/wiki/Galicia_(Spain)">Galicia</a>, in north-west Spain. Most of it sits on a narrow peninsula, so the sea is never far, and it is easy to see on foot. Summers are mild and rarely very hot, and in July there is daylight until around 10 pm, which leaves long evenings after the lectures.</p>
 
           <ul class="sights">
-            {sights.filter(s => s.image).map(s => (
+            {sights.map(s => (
               <li class="sight">
                 {s.image && <img src={s.image} alt={s.name} loading="lazy" width="800" height="500" />}
-                <div class="sight__body">
-                  <h3>{s.href ? <a href={s.href}>{s.name} ↗</a> : s.name}</h3>
-                  <p>{s.text}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <ul class="sights sights--text">
-            {sights.filter(s => !s.image).map(s => (
-              <li class="sight">
                 <div class="sight__body">
                   <h3>{s.href ? <a href={s.href}>{s.name} ↗</a> : s.name}</h3>
                   <p>{s.text}</p>
@@ -80,11 +70,19 @@ const routeName = (r: string) => r.replace(/\*$/, '');
                     {a.domestic.map(r => <li class:list={{ seasonal: seasonal(r) }}>{routeName(r)}</li>)}
                   </ul>
                 </div>
+                {a.announced && a.announced.length > 0 && (
+                  <div class="announced">
+                    <h4 class="label">Announced, not flying yet</h4>
+                    <ul class="routes">
+                      {a.announced.map(r => <li>{r}</li>)}
+                    </ul>
+                  </div>
+                )}
                 <a href={a.href} class="more">All destinations ↗</a>
               </li>
             ))}
           </ul>
-          <p class="fine">Solid routes fly all year. Dashed routes fly in summer only and are based on the 2026 season. Check the airport’s destinations page before booking.</p>
+          <p class="fine">Solid routes fly all year. Dashed routes fly in summer only and are based on the 2026 season. Announced routes have been announced by the airlines but had not started in November 2026. Check the airport’s destinations page before booking.</p>
 
           <TravelOptions options={toCity} />
         </div>
@@ -180,7 +178,9 @@ const routeName = (r: string) => r.replace(/\*$/, '');
     margin-top: .5rem;
   }
 
-  .sights--text { grid-template-columns: 1fr; margin-top: 0; }
+  /* An odd last card spans the full width with a wider photo. */
+  .sight:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .sight:last-child:nth-child(odd) img { aspect-ratio: 21 / 9; }
 
   .row--top { align-items: start; }
 
@@ -257,6 +257,16 @@ const routeName = (r: string) => r.replace(/\*$/, '');
   }
 
   .routes li.seasonal { border-style: dashed; border-color: var(--muted); }
+
+  .announced {
+    padding-top: .75rem;
+    border-top: 1px dashed var(--line);
+  }
+
+  .announced .routes li {
+    border-style: dotted;
+    color: var(--muted);
+  }
 
   .fine { font-size: .85rem; }
 
