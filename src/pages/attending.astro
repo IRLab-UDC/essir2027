@@ -10,6 +10,12 @@ const place = encodeURIComponent('Facultade de Informática, Campus de Elviña, 
 
 const seasonal = (r: string) => r.endsWith('*');
 const routeName = (r: string) => r.replace(/\*$/, '');
+const legend = {
+  year: 'Flies all year',
+  summer: 'Summer only (based on the 2026 season)',
+  announced: 'Announced by the airline, not flying yet',
+};
+const routeTitle = (r: string) => (seasonal(r) ? legend.summer : legend.year);
 ---
 
 <Layout
@@ -60,21 +66,21 @@ const routeName = (r: string) => r.replace(/\*$/, '');
                   <div>
                     <h4 class="label">Direct international</h4>
                     <ul class="routes">
-                      {a.international.map(r => <li class:list={{ seasonal: seasonal(r) }}>{routeName(r)}</li>)}
+                      {a.international.map(r => <li class:list={{ seasonal: seasonal(r) }} title={routeTitle(r)}>{routeName(r)}</li>)}
                     </ul>
                   </div>
                 )}
                 <div>
                   <h4 class="label">Direct in Spain</h4>
                   <ul class="routes">
-                    {a.domestic.map(r => <li class:list={{ seasonal: seasonal(r) }}>{routeName(r)}</li>)}
+                    {a.domestic.map(r => <li class:list={{ seasonal: seasonal(r) }} title={routeTitle(r)}>{routeName(r)}</li>)}
                   </ul>
                 </div>
                 {a.announced && a.announced.length > 0 && (
                   <div class="announced">
                     <h4 class="label">Announced, not flying yet</h4>
                     <ul class="routes">
-                      {a.announced.map(r => <li>{r}</li>)}
+                      {a.announced.map(r => <li class="soon" title={legend.announced}>{r}</li>)}
                     </ul>
                   </div>
                 )}
@@ -82,7 +88,14 @@ const routeName = (r: string) => r.replace(/\*$/, '');
               </li>
             ))}
           </ul>
-          <p class="fine">Solid routes fly all year. Dashed routes fly in summer only and are based on the 2026 season. Announced routes have been announced by the airlines but had not started in November 2026. Check the airport’s destinations page before booking.</p>
+          <div class="legend">
+            <ul class="routes" aria-label="Legend">
+              <li title={legend.year}>All year</li>
+              <li class="seasonal" title={legend.summer}>Summer only</li>
+              <li class="soon" title={legend.announced}>Announced</li>
+            </ul>
+            <p class="fine">Summer routes are based on the 2026 season; announced routes had not started in November 2026. Check the airport’s destinations page before booking.</p>
+          </div>
 
           <TravelOptions options={toCity} />
         </div>
@@ -263,7 +276,16 @@ const routeName = (r: string) => r.replace(/\*$/, '');
     border-top: 1px dashed var(--line);
   }
 
-  .announced .routes li {
+  .routes li[title] { cursor: help; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem 1rem;
+  }
+
+  .routes li.soon {
     border-style: dotted;
     color: var(--muted);
   }
